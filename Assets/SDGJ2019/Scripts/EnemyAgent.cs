@@ -10,7 +10,9 @@ public class EnemyAgent : MonoBehaviour
     private Transform target;
 
     [Range(0, 10)]
-    public float stoppingDistance;
+    public float stoppingDistance = 1.25f;
+    [Range(0, 10)]
+    public float waitTimeAfterLosingSightOfPlayer = 2.5f;
 
     [SerializeField, Range(1,10)]
     private float _playerDetectionRadius = 5;
@@ -20,6 +22,7 @@ public class EnemyAgent : MonoBehaviour
 
     private Vector3 startPostion;
 
+    private bool playerIsInsideDetectionRadius = false;
     private bool isFollowingPlayer = false;
 
     private void Start()
@@ -35,9 +38,46 @@ public class EnemyAgent : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isFollowingPlayer)
+        if (playerIsInsideDetectionRadius)
         {
-            agent.SetDestination(target.position);
+            RaycastHit raycastHit;
+            if(Physics.Raycast(this.transform.position, target.position - this.transform.position, out raycastHit))
+            {
+                Debug.DrawLine(this.transform.position, raycastHit.point, Color.red, 2.0f);
+                if(raycastHit.distance <= _playerDetectionRadius && ReferenceEquals(raycastHit.transform.root.gameObject, Player.instance.transform.root.gameObject))
+                {
+                    isFollowingPlayer = true;
+                    agent.stoppingDistance = this.stoppingDistance;
+                    agent.SetDestination(target.position);
+                }
+                else
+                {
+                    if (isFollowingPlayer && agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        isFollowingPlayer = false;
+                        StartCoroutine(SetDestinationToStartPositionAfterSeconds(waitTimeAfterLosingSightOfPlayer));
+                    }
+                }
+            }
+            else
+            {
+                if (isFollowingPlayer && agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    isFollowingPlayer = false;
+                    StartCoroutine(SetDestinationToStartPositionAfterSeconds(waitTimeAfterLosingSightOfPlayer));
+                }
+            }
+        }
+    }
+
+    IEnumerator SetDestinationToStartPositionAfterSeconds(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if (!isFollowingPlayer)
+        {
+            agent.stoppingDistance = 0;
+            agent.SetDestination(startPostion);
         }
     }
 
@@ -66,8 +106,7 @@ public class EnemyAgent : MonoBehaviour
         if(ReferenceEquals(other.transform.root.gameObject, Player.instance.transform.root.gameObject))
         {
             //Player detected
-            agent.stoppingDistance = this.stoppingDistance;
-            isFollowingPlayer = true;
+            playerIsInsideDetectionRadius = true;
         }
     }
 
@@ -77,7 +116,7 @@ public class EnemyAgent : MonoBehaviour
         {
             //Player exited trigger
             agent.stoppingDistance = 0;
-            isFollowingPlayer = false;
+            playerIsInsideDetectionRadius = false;
             agent.SetDestination(startPostion);
         }
     }
