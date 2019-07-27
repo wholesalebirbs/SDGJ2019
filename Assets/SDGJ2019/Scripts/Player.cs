@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     public static Player instance;
 
+    public ParticleSystem zapParticles;
+
     private void Awake()
     {
         if (instance == null)
@@ -27,6 +29,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            zapParticles.Play();
+        }
     }
 }
