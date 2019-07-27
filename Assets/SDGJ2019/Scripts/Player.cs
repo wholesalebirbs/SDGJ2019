@@ -32,6 +32,20 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Q))
         {
             zapParticles.Play();
+            for(int i = 0; i < 6; i++)
+            {
+                //Debug.DrawLine(this.transform.position + this.transform.forward * 0.5f, this.transform.position + Quaternion.Euler(0, ((90f / 6f) * i) - 45, 0) * this.transform.forward, Color.red, 2);
+                RaycastHit raycastHit;
+                if (Physics.Raycast(this.transform.position + this.transform.forward * 0.5f, Quaternion.Euler(0, ((90f / 6f) * i) - 45, 0) * this.transform.forward, out raycastHit))
+                {
+                    
+                    EnemyAgent enemy = raycastHit.transform.root.gameObject.GetComponentInChildren<EnemyAgent>();
+                    if (enemy != null)
+                    {
+                        enemy.Stun();
+                    }
+                }
+            }
         }
     }
 }

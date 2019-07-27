@@ -28,6 +28,10 @@ public class EnemyAgent : MonoBehaviour
     public Path path;
     private Transform currentPathNode;
 
+    [Range(0,10)]
+    public float stunDuration = 1.5f;
+    private bool isStunned = false;
+
     private void Start()
     {
         agent = this.GetComponent<NavMeshAgent>();
@@ -47,6 +51,8 @@ public class EnemyAgent : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (isStunned)
+            return;
         if (playerIsInsideDetectionRadius)
         {
             RaycastHit raycastHit;
@@ -143,5 +149,23 @@ public class EnemyAgent : MonoBehaviour
             isFollowingPlayer = false;
             StartCoroutine(ReturnToPositionAfterSeconds(0));
         }
+    }
+
+    public void Stun()
+    {
+        if (isStunned)
+            return;
+        Debug.Log("I'be been stunned!");
+        isStunned = true;
+        agent.isStopped = true;
+        //StartCoroutine(RemoveStunEffectAfterTime(stunDuration));
+    }
+
+    IEnumerator RemoveStunEffectAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        isStunned = false;
+        agent.isStopped = false;
     }
 }
