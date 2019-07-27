@@ -52,7 +52,6 @@ public class EnemyAgent : MonoBehaviour
             RaycastHit raycastHit;
             if(Physics.Raycast(this.transform.position, target.position - this.transform.position, out raycastHit))
             {
-                Debug.DrawLine(this.transform.position, raycastHit.point, Color.red, 2);
                 if(raycastHit.distance <= _playerDetectionRadius && ReferenceEquals(raycastHit.transform.root.gameObject, Player.instance.transform.root.gameObject))
                 {
                     isFollowingPlayer = true;
