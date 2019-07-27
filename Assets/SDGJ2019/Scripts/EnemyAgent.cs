@@ -30,7 +30,7 @@ public class EnemyAgent : MonoBehaviour
 
     [Range(0,10)]
     public float stunDuration = 1.5f;
-    private bool isStunned = false;
+    private bool isStunned;
 
     private void Start()
     {
@@ -153,19 +153,19 @@ public class EnemyAgent : MonoBehaviour
 
     public void Stun()
     {
-        if (isStunned)
+        if (this.isStunned)
             return;
         Debug.Log("I'be been stunned!");
-        isStunned = true;
+        this.isStunned = true;
         agent.isStopped = true;
-        //StartCoroutine(RemoveStunEffectAfterTime(stunDuration));
+        StartCoroutine(RemoveStunEffectAfterTime(stunDuration));
     }
 
     IEnumerator RemoveStunEffectAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
 
-        isStunned = false;
+        this.isStunned = false;
         agent.isStopped = false;
     }
 }
