@@ -19,7 +19,7 @@ namespace Robots
         [SerializeField]
         private Interactable interactable;
 
-        [HideInInspector]
+        //[HideInInspector]
         public bool active;
 
         [SerializeField]
