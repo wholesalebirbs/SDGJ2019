@@ -5669,6 +5669,8 @@ MonoBehaviour:
   _playerDetectionRadius: 5
   path: {fileID: 0}
   stunDuration: 1.5
+  damageDealt: 35
+  attackDelay: 0.25
 --- !u!195 &1324939082
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10715,6 +10717,8 @@ MonoBehaviour:
   _playerDetectionRadius: 5
   path: {fileID: 0}
   stunDuration: 1.5
+  damageDealt: 35
+  attackDelay: 0.25
 --- !u!195 &1558842495
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -11181,6 +11185,8 @@ MonoBehaviour:
   _playerDetectionRadius: 5
   path: {fileID: 1534207634}
   stunDuration: 1.5
+  damageDealt: 35
+  attackDelay: 0.5
 --- !u!195 &1964178709
 NavMeshAgent:
   m_ObjectHideFlags: 0

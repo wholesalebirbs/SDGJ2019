@@ -32,6 +32,14 @@ public class EnemyAgent : MonoBehaviour
     public float stunDuration = 1.5f;
     private bool isStunned;
 
+    [Range(1,1000)]
+    public float damageDealt = 35;
+
+    [Range(0.1f, 5)]
+    public float attackDelay = 0.5f;
+
+    private bool isAttacking;
+
     private void Start()
     {
         agent = this.GetComponent<NavMeshAgent>();
@@ -51,7 +59,7 @@ public class EnemyAgent : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isStunned)
+        if (isStunned || isAttacking)
             return;
         if (playerIsInsideDetectionRadius)
         {
@@ -63,6 +71,12 @@ public class EnemyAgent : MonoBehaviour
                     isFollowingPlayer = true;
                     agent.stoppingDistance = this.stoppingDistance;
                     agent.SetDestination(target.position);
+
+                    if (!isAttacking && agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        isAttacking = true;
+                        StartCoroutine(BeginAttack());
+                    }
                 }
                 else
                 {
@@ -91,6 +105,33 @@ public class EnemyAgent : MonoBehaviour
                 agent.SetDestination(currentPathNode.position);
             }
         }
+    }
+
+    IEnumerator BeginAttack()
+    {
+        yield return new WaitForSeconds(attackDelay);
+
+        Attack();
+    }
+
+    private void Attack()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            Debug.DrawLine(this.transform.position + this.transform.forward * 0.25f + Vector3.up * 0.5f, this.transform.position + Quaternion.Euler(0, ((90f / 6f) * i) - 45, 0) * this.transform.forward + Vector3.up * 0.5f, Color.red, 2);
+            RaycastHit raycastHit;
+            if (Physics.Raycast(this.transform.position + this.transform.forward * 0.25f + Vector3.up * 0.5f, Quaternion.Euler(0, ((90f / 6f) * i) - 45, 0) * this.transform.forward, out raycastHit, 1.5f))
+            {
+                Player player = raycastHit.transform.root.gameObject.GetComponentInChildren<Player>();
+                if (player != null)
+                {
+                    player.ApplyDamage(damageDealt);
+                    break;
+                }
+            }
+        }
+
+        isAttacking = false;
     }
 
     IEnumerator ReturnToPositionAfterSeconds(float time)
