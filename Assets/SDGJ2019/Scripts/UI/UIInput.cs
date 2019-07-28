@@ -13,7 +13,6 @@ namespace Walkman
         public GameObject leftPrefab;
         List<GameObject> currentInputs = new List<GameObject>();
 
-
         int maxInputsToShow = 4;
         public void OnValidInput(string direction)
         {
