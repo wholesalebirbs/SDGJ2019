@@ -208,11 +208,6 @@ namespace Walkman
                 currentBeat = 1 + (_currentBeat % beatsPerMeasure);
 
             }
-
-            if (!audioSource.isPlaying)
-            {
-                BeginSong();
-            }
         }
         void OnAudioFilterRead(float[] data, int channels)
         {
