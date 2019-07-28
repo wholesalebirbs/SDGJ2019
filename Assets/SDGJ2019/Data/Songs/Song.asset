@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9bdf6d7a333d74ea77c41b3237f2eb, type: 3}
   m_Name: Song
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 0}
-  bpm: 0
+  audioClip: {fileID: 8300000, guid: 111bf5ad3b7d4db4f9773bc8a7cc199b, type: 3}
+  bpm: 120
