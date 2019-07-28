@@ -4412,6 +4412,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd716e11ff515d46a17fa824fef6b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combos:
+  - one: 0
+    two: 1
+    three: 1
+    four: 0
+    comboSuccessEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - one: 0
+    two: 1
+    three: 2
+    four: 3
+    comboSuccessEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
 --- !u!1 &1385060593
 GameObject:
   m_ObjectHideFlags: 0

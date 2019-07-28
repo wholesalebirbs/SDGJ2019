@@ -29,7 +29,6 @@ namespace Walkman
         {
             int index = Random.Range(0, spawnPositions.Length);
             GameObject.Instantiate(prefabToSpawn, spawnPositions[index].position, Quaternion.identity);
-
         }
     }
 }

@@ -1,15 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ComboManager : MonoBehaviour
 {
-    List<string> currentInputs = new List<string>();
+    List<Inputs> currentInputs = new List<Inputs>();
 
-    static string[] combo1 = { "Up", "Down", "Left", "Left" };
-    static string[] combo2 = { "Right", "Left", "Right", "Left" };
+    public enum Inputs { Up, Down, Left, Right }
 
-    string[][] combos = { combo1, combo2 };
+    [System.Serializable]
+    public struct Combo
+    {
+        public Inputs one, two, three, four;
+
+        public UnityEvent comboSuccessEvent;
+    }
+
+    public Combo[] combos;
 
     int maxInputsToShow = 4;
     public void OnValidInput(string direction)
@@ -21,19 +29,19 @@ public class ComboManager : MonoBehaviour
 
         if (direction == "Up")
         {
-            currentInputs.Add("Up");
+            currentInputs.Add(Inputs.Up);
         }
         else if (direction == "Down")
         {
-            currentInputs.Add("Down");
+            currentInputs.Add(Inputs.Down);
         }
         else if (direction == "Right")
         {
-            currentInputs.Add("Right");
+            currentInputs.Add(Inputs.Right);
         }
         else if (direction == "Left")
         {
-            currentInputs.Add("Left");
+            currentInputs.Add(Inputs.Left);
         }
 
         if (currentInputs.Count == maxInputsToShow)
@@ -54,21 +62,11 @@ public class ComboManager : MonoBehaviour
 
     private void CheckForCombos()
     {
-        foreach(string[] combo in combos)
+        foreach(Combo combo in combos)
         {
-            int i = 0;
-            int numCorrect = 0;
-            foreach(string input in combo)
+            if(currentInputs[0] == combo.one && currentInputs[1] == combo.two && currentInputs[2] == combo.three && currentInputs[3] == combo.four)
             {
-                if(currentInputs[i++].Equals(input))
-                {
-                    numCorrect++;
-                }
-            }
-
-            if(numCorrect == maxInputsToShow)
-            {
-                Debug.Log("Combo success!");
+                combo.comboSuccessEvent?.Invoke();
             }
         }
     }
