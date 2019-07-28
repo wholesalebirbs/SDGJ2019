@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: -1, y: 0, z: 0}
   beatsPerMovement: 2
+  bpm: 120
 --- !u!114 &7184166751478764362
 MonoBehaviour:
   m_ObjectHideFlags: 0
