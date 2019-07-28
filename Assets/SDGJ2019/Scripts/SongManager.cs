@@ -51,6 +51,9 @@ namespace Walkman
         // [SerializeField]
         private double secPerBeat;
 
+
+
+
         private int _totalBeats = 0;
         public int TotalBeats
         {
@@ -80,6 +83,11 @@ namespace Walkman
         private int currentBeat;
         [SerializeField]
         private int beatsPerMeasure;
+
+
+        public double lastBeatTime;
+        public double nextBeatTime;
+        public float secUntilNextBeat;
 
         [SerializeField]
         double secPerQuarterBeat;
@@ -190,12 +198,20 @@ namespace Walkman
                 currentSixteenthBeat++;
                 if (_currentBeat > lastBeat)
                 {
+                    lastBeatTime = AudioSettings.dspTime;
+                    nextBeatTime = lastBeatTime + secPerBeat;
                     lastBeat = _currentBeat;
                     CallOnbeat();
                 }
 
+
                 currentBeat = 1 + (_currentBeat % beatsPerMeasure);
 
+            }
+
+            if (!audioSource.isPlaying)
+            {
+                BeginSong();
             }
         }
         void OnAudioFilterRead(float[] data, int channels)
