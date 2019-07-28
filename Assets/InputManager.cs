@@ -29,9 +29,10 @@ namespace Walkman
 
         public UnityEvent OnInvalidInput;
 
+        private int lastInputBeat = -1;
+
         private void Update()
         {
-
             if (AudioSettings.dspTime < songManager.lastBeatTime + inputPadding || AudioSettings.dspTime > songManager.nextBeatTime - inputPadding)
             {
                 canKey = true;
@@ -43,9 +44,10 @@ namespace Walkman
 
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                if (canKey)
+                if (canKey && lastInputBeat != songManager.CurrentBeat)
                 {
                     OnValidInput.Invoke(AddInputToList("Up"));
+                    lastInputBeat = songManager.CurrentBeat;
                 }
                 else
                 {
@@ -55,9 +57,10 @@ namespace Walkman
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (canKey)
+                if (canKey && lastInputBeat != songManager.CurrentBeat)
                 {
                     OnValidInput.Invoke(AddInputToList("Down"));
+                    lastInputBeat = songManager.CurrentBeat;
                 }
                 else
                 {
@@ -67,9 +70,10 @@ namespace Walkman
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                if (canKey)
+                if (canKey && lastInputBeat != songManager.CurrentBeat)
                 {
                     OnValidInput.Invoke(AddInputToList("Left"));
+                    lastInputBeat = songManager.CurrentBeat;
                 }
                 else
                 {
@@ -79,9 +83,10 @@ namespace Walkman
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                if (canKey)
+                if (canKey && lastInputBeat != songManager.CurrentBeat)
                 {
                     OnValidInput.Invoke(AddInputToList("Right"));
+                    lastInputBeat = songManager.CurrentBeat;
                 }
                 else
                 {
