@@ -16,8 +16,10 @@ public class CubeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float t = Mathf.Pow(((float)AudioSettings.dspTime * bpm / 60) % 1,cubeSnappiness);
-        this.transform.rotation = Quaternion.Euler(t * 360 / 4, 0, 0);
+        float currentBeat = (float)AudioSettings.dspTime * bpm / 60;
+        float t = Mathf.Pow(currentBeat % 1, cubeSnappiness);
+        
+        this.transform.rotation = Quaternion.Euler((t + (int)currentBeat) * 360 / 4, 0, 0);
         this.transform.position = new Vector3(0, Mathf.Sqrt(1 - Mathf.Pow(((t + 1) * 2) % 2 - 1,2)) * 0.207f + 0.5f, 0);//* Mathf.Abs((Time.time * 60 / bpm) % 1 - 0.5f) * Mathf.Sqrt(2) / 2 + 0.5f, 0);
     }
 }
