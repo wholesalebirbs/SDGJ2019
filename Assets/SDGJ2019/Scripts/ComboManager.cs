@@ -64,8 +64,10 @@ public class ComboManager : MonoBehaviour
     {
         foreach(Combo combo in combos)
         {
+            Debug.Log(currentInputs[0] + " == " + combo.one);
             if(currentInputs[0] == combo.one && currentInputs[1] == combo.two && currentInputs[2] == combo.three && currentInputs[3] == combo.four)
             {
+                Debug.Log("Combo success!");
                 combo.comboSuccessEvent?.Invoke();
             }
         }

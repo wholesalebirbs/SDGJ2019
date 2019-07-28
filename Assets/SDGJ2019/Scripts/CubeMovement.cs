@@ -29,7 +29,7 @@ public class CubeMovement : MonoBehaviour
     {
         if (direction == "Up")
         {
-            if (currentPosition > 0)
+            if (currentPosition > 1)
             {
                 this.transform.Translate(Vector3.up);
                 currentPosition--;
