@@ -83,6 +83,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void ExitToMenu()
+    {
+        SceneManager.LoadScene("MENU");
+    }
+
     public void PlayerDeath()
     {
         failPanel.SetActive(true);
