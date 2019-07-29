@@ -8,6 +8,12 @@ public class ComboManager : MonoBehaviour
 {
     List<Inputs> currentInputs = new List<Inputs>();
 
+    public AudioClip oneClip;
+    public AudioClip twoClip;
+    public AudioClip threeClip;
+    public AudioClip heyClip;
+    public AudioClip awwClip;
+
     public enum Inputs { Up, Down, Left, Right }
 
     [System.Serializable]
@@ -51,10 +57,31 @@ public class ComboManager : MonoBehaviour
         {
             CheckForCombos();
         }
+
+        if(currentInputs.Count == 1)
+        {
+            AudioManager.instance.PlaySFX(oneClip, Vector3.zero);
+        } 
+        else if (currentInputs.Count == 2)
+        {
+            AudioManager.instance.PlaySFX(twoClip, Vector3.zero);
+        }
+        else if (currentInputs.Count == 3)
+        {
+            AudioManager.instance.PlaySFX(threeClip, Vector3.zero);
+        }
+        else if (currentInputs.Count == 4)
+        {
+            AudioManager.instance.PlaySFX(heyClip, Vector3.zero);
+        }
     }
 
     public void OnInvalidInput()
     {
+        if (currentInputs.Count == 3)
+        {
+            AudioManager.instance.PlaySFX(awwClip, Vector3.zero);
+        }
         ClearInputs();
     }
 

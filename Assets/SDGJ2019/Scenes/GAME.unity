@@ -10209,6 +10209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd716e11ff515d46a17fa824fef6b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oneClip: {fileID: 8300000, guid: 6063f98a7549d1c45ba83bcda7e72971, type: 3}
+  twoClip: {fileID: 8300000, guid: 0aa510ccb4f46fe4483b3277dc4a75e7, type: 3}
+  threeClip: {fileID: 8300000, guid: b425ed3922e6b944e854707d5d0e77c3, type: 3}
+  heyClip: {fileID: 8300000, guid: 1b6d64a88afd8454392961ee9be4143e, type: 3}
+  awwClip: {fileID: 8300000, guid: 88b62a16faf4cd5498b8e4b07d60ecd3, type: 3}
   combos:
   - one: 0
     two: 1

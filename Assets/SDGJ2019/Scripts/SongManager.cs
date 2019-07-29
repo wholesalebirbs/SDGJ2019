@@ -7,6 +7,13 @@ namespace Walkman
     [RequireComponent(typeof(AudioSource))]
     public class SongManager : MonoBehaviour
     {
+
+
+
+        public static SongManager instance;
+
+
+
         [Header("Song Info")]
         [SerializeField]
         private Song _currentSong;
@@ -72,6 +79,15 @@ namespace Walkman
             }
         }
 
+        private int _firstBeat = 0;
+        public int FirstBeat
+        {
+            get
+            {
+                return _firstBeat;
+            }
+        }
+
         private double dspTimeDelta;
 
         private double lastFrameTime;
@@ -130,6 +146,15 @@ namespace Walkman
 
         private void Awake()
         {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else if (instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+
             audioSource = GetComponent<AudioSource>();
         }
 
@@ -152,7 +177,7 @@ namespace Walkman
             isPlaying = true;
 
             _currentSpeedFactor = startingSpeedFactor;
-            _totalBeats = (int)((CurrentSong.audioClip.length / 60f) * _currentSong.bpm);
+            _totalBeats = (int)((CurrentSong.audioClip.length / 60f) * _currentSong.bpm * 1.5);
 
             lastBeat = -1;
 
@@ -191,6 +216,11 @@ namespace Walkman
             {
                 // calculate the position in beats
                 _currentBeat = System.Convert.ToInt32(_songPosition / secPerBeat);
+
+                if(_firstBeat == 0)
+                {
+                    _firstBeat = _currentBeat;
+                }
 
                 currentSixteenthBeat = (System.Convert.ToInt32(_songPosition / secPerQuarterBeat) % 4);
                 currentSixteenthBeatString = quarterBeatString[currentSixteenthBeat];

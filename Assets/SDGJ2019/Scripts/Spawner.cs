@@ -18,7 +18,8 @@ namespace Walkman
         public void OnBeat()
         {
             currentBeat++;
-            if (currentBeat >= spawnRate)
+            Debug.Log(SongManager.instance.TotalBeats - (SongManager.instance.CurrentBeat - SongManager.instance.FirstBeat));
+            if (currentBeat >= spawnRate && SongManager.instance.TotalBeats - (SongManager.instance.CurrentBeat - SongManager.instance.FirstBeat)  > 24)
             {
                 currentBeat = 0;
                 Spawn();
