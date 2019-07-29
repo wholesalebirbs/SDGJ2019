@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Robots;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,10 +11,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject pausedPanel;
     public GameObject failPanel;
+    public GameObject victoryPanel;
 
     private bool isPaused;
 
     public static GameManager instance;
+
+    public AudioClip winJingle;
 
 
     private void Awake()
@@ -28,7 +32,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,7 @@ public class GameManager : MonoBehaviour
         songManager.Play();
         pausedPanel.SetActive(false);
         failPanel.SetActive(false);
+        victoryPanel.SetActive(false);
         Time.timeScale = 1;
     }
 
@@ -84,5 +88,15 @@ public class GameManager : MonoBehaviour
         failPanel.SetActive(true);
         Time.timeScale = 0;
         songManager.Pause();
+    }
+
+    public void OnBeatChecks()
+    {
+        if (SongManager.instance.TotalBeats - (SongManager.instance.CurrentBeat - SongManager.instance.FirstBeat) == 0)
+        {
+            //Play victory jingle and show victory
+            AudioManager.instance.PlaySFX(winJingle, Vector3.zero);
+            victoryPanel.SetActive(true);
+        }
     }
 }
