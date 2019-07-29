@@ -5,8 +5,24 @@ using UnityEngine;
 
 namespace Robots
 {
-    public class AudioManager : Singleton<AudioManager>
+    public class AudioManager : MonoBehaviour
     {
+
+        public static AudioManager instance;
+
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else if (instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
         /// <summary>
         /// Plays a clip at a position
         /// </summary>

@@ -20,7 +20,7 @@ public class LaneBlast : MonoBehaviour
         if(collider.transform.gameObject.GetComponent<OnBeatMover>() != null)
         {
             GameObject.Destroy(collider.transform.gameObject);
-            AudioManager.Instance.PlaySFX(hitEnemySound, collider.transform.position);
+            AudioManager.instance.PlaySFX(hitEnemySound, collider.transform.position);
         }
     }
 }

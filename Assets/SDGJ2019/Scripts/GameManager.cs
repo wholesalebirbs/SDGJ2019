@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Walkman;
 public class GameManager : MonoBehaviour
 {
@@ -8,8 +9,25 @@ public class GameManager : MonoBehaviour
     SongManager songManager;
 
     public GameObject pausedPanel;
+    public GameObject failPanel;
 
     private bool isPaused;
+
+    public static GameManager instance;
+
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +35,8 @@ public class GameManager : MonoBehaviour
         //songManager.ChangeSpeed(1.5f);
         songManager.Play();
         pausedPanel.SetActive(false);
+        failPanel.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void PauseGame()
@@ -52,5 +72,17 @@ public class GameManager : MonoBehaviour
         {
             TogglePause();
         }
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PlayerDeath()
+    {
+        failPanel.SetActive(true);
+        Time.timeScale = 0;
+        songManager.Pause();
     }
 }

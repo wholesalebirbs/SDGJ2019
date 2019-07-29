@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using Robots;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Walkman;
 
 public class CubeMovement : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class CubeMovement : MonoBehaviour
 
     private int currentPosition = 3;
 
+    public AudioClip deathAudioClip;
+
     public void OnValidInput(string direction)
     {
         if (direction == "Up")
@@ -42,6 +46,15 @@ public class CubeMovement : MonoBehaviour
                 this.transform.Translate(Vector3.down);
                 currentPosition++;
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<OnBeatMover>() != null)
+        {
+            AudioManager.instance.PlaySFX(deathAudioClip, Vector3.zero);
+            GameManager.instance.PlayerDeath();
         }
     }
 }

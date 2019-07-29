@@ -70,7 +70,7 @@ public class ComboManager : MonoBehaviour
             if(currentInputs[0] == combo.one && currentInputs[1] == combo.two && currentInputs[2] == combo.three && currentInputs[3] == combo.four)
             {
                 combo.comboSuccessEvent?.Invoke();
-                AudioManager.Instance.PlaySFX(combo.comboAudio, Vector3.zero);
+                AudioManager.instance.PlaySFX(combo.comboAudio, Vector3.zero);
             }
         }
     }
