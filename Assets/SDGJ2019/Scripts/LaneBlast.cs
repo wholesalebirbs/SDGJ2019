@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Robots;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Walkman;
@@ -6,6 +7,7 @@ using Walkman;
 public class LaneBlast : MonoBehaviour
 {
     public int blastSpeed = 5;
+    public AudioClip hitEnemySound;
 
     // Update is called once per frame
     void Update()
@@ -18,6 +20,7 @@ public class LaneBlast : MonoBehaviour
         if(collider.transform.gameObject.GetComponent<OnBeatMover>() != null)
         {
             GameObject.Destroy(collider.transform.gameObject);
+            AudioManager.Instance.PlaySFX(hitEnemySound, collider.transform.position);
         }
     }
 }

@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blastSpeed: 12
+  hitEnemySound: {fileID: 8300000, guid: fada0f55503fa544eb7b867da1f1283b, type: 3}
 --- !u!54 &921239277471522846
 Rigidbody:
   m_ObjectHideFlags: 0

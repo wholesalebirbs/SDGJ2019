@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Robots;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,6 +16,8 @@ public class ComboManager : MonoBehaviour
         public Inputs one, two, three, four;
 
         public UnityEvent comboSuccessEvent;
+
+        public AudioClip comboAudio;
     }
 
     public Combo[] combos;
@@ -67,6 +70,7 @@ public class ComboManager : MonoBehaviour
             if(currentInputs[0] == combo.one && currentInputs[1] == combo.two && currentInputs[2] == combo.three && currentInputs[3] == combo.four)
             {
                 combo.comboSuccessEvent?.Invoke();
+                AudioManager.Instance.PlaySFX(combo.comboAudio, Vector3.zero);
             }
         }
     }
