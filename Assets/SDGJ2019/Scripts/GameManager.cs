@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     SongManager songManager;
 
+    public GameObject pausedPanel;
+
     private bool isPaused;
 
     // Start is called before the first frame update
@@ -14,18 +16,21 @@ public class GameManager : MonoBehaviour
     {
         //songManager.ChangeSpeed(1.5f);
         songManager.Play();
+        pausedPanel.SetActive(false);
     }
 
     public void PauseGame()
     {
         Time.timeScale = 0;
         songManager.Pause();
+        pausedPanel.SetActive(true);
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
         songManager.Play();
+        pausedPanel.SetActive(false);
     }
 
     public void TogglePause()
