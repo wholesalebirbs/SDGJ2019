@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40d05bc7df8a3646aafe603aac6c4fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentSong: {fileID: 11400000, guid: cbdd3e4829e1b96458b2c48163b1a099, type: 2}
+  _currentSong: {fileID: 11400000, guid: 277a438c98b4c0b469e081c7cd981e5a, type: 2}
   _songPosition: 0
   _currentBeat: 0
   currentBeat: 0
